@@ -36,3 +36,10 @@ and the same 2 notes. This repeat set _R_CHECK_CRAN_INCOMING_REMOTE_=false
 to avoid repeating the remote incoming checks that passed on the first build.
 
 No new Windows or macOS checks have been performed for this patch.
+
+## Current R-devel check
+
+GitHub Actions, Ubuntu, R Under development (2026-10-26 r90766):
+`R CMD check --no-manual --as-cran` completed with Status: OK.
+
+https://github.com/queelius/flexhaz/actions/runs/40639851421/job/122655206790
