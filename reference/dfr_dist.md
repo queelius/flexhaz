@@ -32,12 +32,17 @@ dfr_dist(
 - ob_col:
 
   The column name for observation times in data frames. Defaults to "t".
+  Inference methods require finite, non-negative numeric times and
+  reject missing values.
 
 - delta_col:
 
   The column name for event indicators in data frames. Uses standard
   survival analysis convention: 1 = event observed (exact), 0 =
-  right-censored, -1 = left-censored. Defaults to "delta".
+  right-censored, -1 = left-censored. Defaults to "delta". A missing
+  column denotes all exact observations. An existing column must contain
+  non-missing numeric codes or logical event indicators; other values
+  are rejected.
 
 - cum_haz_rate:
 

@@ -22,7 +22,7 @@
 
     <a class="navbar-brand me-2" href="index.html">flexhaz</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.5.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.5.3</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -96,58 +96,8 @@
 <div class="section level2">
 <h2 id="why-flexhaz">Why flexhaz?<a class="anchor" aria-label="anchor" href="#why-flexhaz"></a>
 </h2>
-<table class="table">
-<colgroup>
-<col width="31%">
-<col width="42%">
-<col width="15%">
-<col width="11%">
-</colgroup>
-<thead><tr>
-<th>Feature</th>
-<th>flexhaz</th>
-<th>survival</th>
-<th>flexsurv</th>
-</tr></thead>
-<tbody>
-<tr>
-<td>Custom hazard functions</td>
-<td><strong>Yes</strong></td>
-<td>No</td>
-<td>Limited</td>
-</tr>
-<tr>
-<td>Built-in distributions</td>
-<td>Exp, Weibull, Gompertz, Log-logistic</td>
-<td>Weibull, Exp</td>
-<td>Many</td>
-</tr>
-<tr>
-<td>User-supplied derivatives</td>
-<td><strong>score + Hessian</strong></td>
-<td>No</td>
-<td>No</td>
-</tr>
-<tr>
-<td>Censoring support</td>
-<td>Right + Left</td>
-<td>Right</td>
-<td>Right</td>
-</tr>
-<tr>
-<td>Model diagnostics</td>
-<td>Cox-Snell, Martingale, Q-Q</td>
-<td>Limited</td>
-<td>Limited</td>
-</tr>
-<tr>
-<td>Likelihood model interface</td>
-<td><strong>Full</strong></td>
-<td>Basic</td>
-<td>Partial</td>
-</tr>
-</tbody>
-</table>
+<p>Use <code>flexhaz</code> when your starting point is a hazard function and you want to reuse it for simulation, likelihood evaluation, fitting, and composition into reliability systems. Analytical cumulative hazards and derivatives are optional.</p>
+<p>For regression and established survival workflows, also consider <a href="https://stat.ethz.ch/R-manual/R-devel/library/survival/html/Surv.html" class="external-link"><code>survival</code></a> and <a href="https://chjackson.github.io/flexsurv/reference/flexsurvreg.html" class="external-link"><code>flexsurv</code></a>. Both support multiple censoring types; <code>flexsurv</code> also accepts custom distributions. <code>flexhaz</code> currently handles exact, right-censored, and left-censored observations, using a function-based likelihood interface.</p>
 </div>
 <div class="section level2">
 <h2 id="features">Features<a class="anchor" aria-label="anchor" href="#features"></a>
@@ -263,17 +213,9 @@
 <div class="section level2">
 <h2 id="mathematical-background">Mathematical Background<a class="anchor" aria-label="anchor" href="#mathematical-background"></a>
 </h2>
-<p>For a lifetime <img src="https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&amp;space;%5Cbg_white&amp;space;T" title="T" alt="T">, the hazard function is:</p>
-<div class="float">
-<img src="https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&amp;space;%5Cbg_white&amp;space;h%28t%29%20%3D%20%5Cfrac%7Bf%28t%29%7D%7BS%28t%29%7D" title="h(t) = \frac{f(t)}{S(t)}" alt="h(t) = "><div class="figcaption">h(t) = </div>
-</div>
+<p>For a lifetime <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>T</mi><annotation encoding="application/x-tex">T</annotation></semantics></math>, the hazard function is: <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>h</mi><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mfrac><mrow><mi>f</mi><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo></mrow><mrow><mi>S</mi><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo></mrow></mfrac></mrow><annotation encoding="application/x-tex">h(t) = \frac{f(t)}{S(t)}</annotation></semantics></math></p>
 <p>From the hazard, all other quantities follow:</p>
 <table class="table">
-<colgroup>
-<col width="9%">
-<col width="84%">
-<col width="6%">
-</colgroup>
 <thead><tr>
 <th>Function</th>
 <th>Formula</th>
@@ -282,22 +224,22 @@
 <tbody>
 <tr>
 <td>Cumulative hazard</td>
-<td><img src="https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&amp;space;%5Cbg_white&amp;space;H%28t%29%20%3D%20%5Cint_0%5Et%20h%28u%29%20du" title="H(t) = \int_0^t h(u) du" alt="H(t) = _0^t h(u) du"></td>
+<td><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>H</mi><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msubsup><mo>∫</mo><mn>0</mn><mi>t</mi></msubsup><mi>h</mi><mo stretchy="false" form="prefix">(</mo><mi>u</mi><mo stretchy="false" form="postfix">)</mo><mi>d</mi><mi>u</mi></mrow><annotation encoding="application/x-tex">H(t) = \int_0^t h(u) du</annotation></semantics></math></td>
 <td><code><a href="reference/cum_haz.html">cum_haz()</a></code></td>
 </tr>
 <tr>
 <td>Survival</td>
-<td><img src="https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&amp;space;%5Cbg_white&amp;space;S%28t%29%20%3D%20e%5E%7B-H%28t%29%7D" title="S(t) = e^{-H(t)}" alt="S(t) = e^{-H(t)}"></td>
+<td><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>S</mi><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msup><mi>e</mi><mrow><mi>−</mi><mi>H</mi><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo></mrow></msup></mrow><annotation encoding="application/x-tex">S(t) = e^{-H(t)}</annotation></semantics></math></td>
 <td><code><a href="https://queelius.github.io/algebraic.dist/reference/surv.html" class="external-link">surv()</a></code></td>
 </tr>
 <tr>
 <td>CDF</td>
-<td><img src="https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&amp;space;%5Cbg_white&amp;space;F%28t%29%20%3D%201%20-%20S%28t%29" title="F(t) = 1 - S(t)" alt="F(t) = 1 - S(t)"></td>
+<td><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>F</mi><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>1</mn><mo>−</mo><mi>S</mi><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">F(t) = 1 - S(t)</annotation></semantics></math></td>
 <td><code><a href="https://queelius.github.io/algebraic.dist/reference/cdf.html" class="external-link">cdf()</a></code></td>
 </tr>
 <tr>
 <td>PDF</td>
-<td><img src="https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&amp;space;%5Cbg_white&amp;space;f%28t%29%20%3D%20h%28t%29%20%5Ccdot%20S%28t%29" title="f(t) = h(t) \cdot S(t)" alt="f(t) = h(t) S(t)"></td>
+<td><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>h</mi><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mo>⋅</mo><mi>S</mi><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">f(t) = h(t) \cdot S(t)</annotation></semantics></math></td>
 <td><code><a href="https://rdrr.io/r/stats/density.html" class="external-link">density()</a></code></td>
 </tr>
 </tbody>
@@ -306,8 +248,8 @@
 <div class="section level2">
 <h2 id="likelihood-for-survival-data">Likelihood for Survival Data<a class="anchor" aria-label="anchor" href="#likelihood-for-survival-data"></a>
 </h2>
-<p>For exact observations: <img src="https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&amp;space;%5Cbg_white&amp;space;%5Clog%20L%20%3D%20%5Clog%20h%28t%29%20-%20H%28t%29" title="\log L = \log h(t) - H(t)" alt="L = h(t) - H(t)"></p>
-<p>For right-censored: <img src="https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&amp;space;%5Cbg_white&amp;space;%5Clog%20L%20%3D%20-H%28t%29" title="\log L = -H(t)" alt="L = -H(t)"></p>
+<p>For exact observations: <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">log</mi><mo>⁡</mo></mrow><mi>L</mi><mo>=</mo><mrow><mi mathvariant="normal">log</mi><mo>⁡</mo></mrow><mi>h</mi><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mo>−</mo><mi>H</mi><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\log L = \log h(t) - H(t)</annotation></semantics></math></p>
+<p>For right-censored: <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">log</mi><mo>⁡</mo></mrow><mi>L</mi><mo>=</mo><mi>−</mi><mi>H</mi><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\log L = -H(t)</annotation></semantics></math></p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Mixed data with censoring</span></span>
 <span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
@@ -416,7 +358,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.1.</p>
 </div>
 
     </footer>

@@ -1,6 +1,17 @@
 # Changelog
 
+## flexhaz 0.5.3
+
+- Likelihood, score, Hessian, and fitting methods now reject missing or
+  invalid censoring codes and non-numeric, negative, or non-finite
+  observation times. Previously, unrecognized or missing censoring codes
+  silently dropped rows from the log-likelihood. A missing censoring
+  column still denotes exact observations; logical event indicators and
+  zero observation times are supported.
+
 ## flexhaz 0.5.2
+
+CRAN release: 2026-05-23
 
 - Prototype constructors
   ([`dfr_exponential()`](https://queelius.github.io/flexhaz/reference/dfr_exponential.md),

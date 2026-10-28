@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">flexhaz</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.5.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.5.3</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -47,7 +47,11 @@
     </div>
 
     <div class="section level2">
-<h2 class="pkg-version" data-toc-text="0.5.2" id="flexhaz-052">flexhaz 0.5.2<a class="anchor" aria-label="anchor" href="#flexhaz-052"></a></h2>
+<h2 class="pkg-version" data-toc-text="0.5.3" id="flexhaz-053">flexhaz 0.5.3<a class="anchor" aria-label="anchor" href="#flexhaz-053"></a></h2>
+<ul><li>Likelihood, score, Hessian, and fitting methods now reject missing or invalid censoring codes and non-numeric, negative, or non-finite observation times. Previously, unrecognized or missing censoring codes silently dropped rows from the log-likelihood. A missing censoring column still denotes exact observations; logical event indicators and zero observation times are supported.</li>
+</ul></div>
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="0.5.2" id="flexhaz-052">flexhaz 0.5.2<a class="anchor" aria-label="anchor" href="#flexhaz-052"></a></h2><p class="text-muted">CRAN release: 2026-05-23</p>
 <ul><li>Prototype constructors (<code><a href="../reference/dfr_exponential.html">dfr_exponential()</a></code>, <code><a href="../reference/dfr_weibull.html">dfr_weibull()</a></code>, <code><a href="../reference/dfr_gompertz.html">dfr_gompertz()</a></code>, <code><a href="../reference/dfr_loglogistic.html">dfr_loglogistic()</a></code>) now prepend a family-specific S3 subclass (e.g. <code>"dfr_exponential"</code>) to the class chain. This enables downstream packages to dispatch on component type via <code><a href="https://rdrr.io/r/base/class.html" class="external-link">inherits()</a></code> rather than maintaining parallel lookup tables. Existing <code>inherits(x, "dfr_dist")</code> checks are unaffected (additive change).</li>
 </ul></div>
     <div class="section level2">
@@ -104,7 +108,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.1.</p>
 </div>
 
     </footer></div>
