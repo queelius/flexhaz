@@ -35,14 +35,16 @@ quantiles, sampling, log-likelihoods, MLE fitting, and residual diagnostics.
 
 ## Why flexhaz?
 
-| Feature | flexhaz | survival | flexsurv |
-|---------|----------|----------|----------|
-| Custom hazard functions | **Yes** | No | Limited |
-| Built-in distributions | Exp, Weibull, Gompertz, Log-logistic | Weibull, Exp | Many |
-| User-supplied derivatives | **score + Hessian** | No | No |
-| Censoring support | Right + Left | Right | Right |
-| Model diagnostics | Cox-Snell, Martingale, Q-Q | Limited | Limited |
-| Likelihood model interface | **Full** | Basic | Partial |
+Use `flexhaz` when your starting point is a hazard function and you want to
+reuse it for simulation, likelihood evaluation, fitting, and composition into
+reliability systems. Analytical cumulative hazards and derivatives are optional.
+
+For regression and established survival workflows, also consider
+[`survival`](https://stat.ethz.ch/R-manual/R-devel/library/survival/html/Surv.html)
+and [`flexsurv`](https://chjackson.github.io/flexsurv/reference/flexsurvreg.html).
+Both support multiple censoring types; `flexsurv` also accepts custom
+distributions. `flexhaz` currently handles exact, right-censored, and
+left-censored observations, using a function-based likelihood interface.
 
 ## Features
 

@@ -1,32 +1,38 @@
-## R CMD check results
+# flexhaz 0.5.3
 
-0 errors | 0 warnings | 1 note
+## Changes
 
-* One NOTE: "unable to verify current time" (system clock check, benign).
+Likelihood, score, Hessian and fitting now reject invalid/missing censoring
+codes and non-numeric, negative or non-finite observation times. Previously,
+unknown or missing event codes silently omitted observations from the
+log-likelihood. The missing-column convention (all observations exact), logical
+indicators, zero times, custom column names and empty-data behavior are retained.
+Regression tests cover likelihood and both analytical derivative entry points.
 
-## Patch (v0.5.1 -> v0.5.2)
+The README now describes the package's hazard-function workflow and links to
+the official survival and flexsurv documentation, replacing an inaccurate
+feature-comparison table.
 
-Additive backwards-compatible change. The prototype constructors
-dfr_exponential(), dfr_weibull(), dfr_gompertz(), and dfr_loglogistic()
-now prepend a family-specific S3 subclass (e.g., "dfr_exponential",
-"dfr_weibull") to the class chain. Downstream packages can dispatch on
-component type via inherits() rather than maintaining parallel lookup
-tables.
+## Local validation
 
-The change is purely additive: existing inherits(x, "dfr_dist") checks
-and all distribution methods (hazard, surv, cdf, density, sampler, etc.)
-continue to dispatch and behave identically.
+Ubuntu 24.04.3 LTS, R 4.3.3, x86_64 Linux, checked 2026-10-28.
 
-## Coordinated submission
+The first R CMD check --as-cran completed with 0 errors, 0 warnings and 2 notes:
 
-This is part of a coordinated 3-package submission. All packages are
-maintained by me. Updated versions being submitted simultaneously:
+* Unable to verify current time.
+* HTML validation skipped because 'tidy' is unavailable; math rendering
+  validation skipped because the 'V8' package is unavailable.
 
-- flexhaz 0.5.2 (this package)
-- serieshaz 0.2.0
-- maskedcauses 0.10.0
+Remote CRAN incoming and dependency checks passed. Tests, examples (including
+--run-donttest), vignette rebuilds and the PDF manual passed. Full development
+tests passed; measured line coverage was 99.26%. The development suite reports
+30 pre-existing warnings from optimizer evaluations/diagnostics. Integration
+checks passed for serieshaz fitting/interoperability and maskedhaz
+fitting/cross-validation with the changed source packages loaded together.
 
-## Test environments
+The final source archive, including regenerated README/documentation and all
+53 input-validation assertions, also passed --as-cran with 0 errors, 0 warnings
+and the same 2 notes. This repeat set _R_CHECK_CRAN_INCOMING_REMOTE_=false
+to avoid repeating the remote incoming checks that passed on the first build.
 
-* local Ubuntu 24.04, R 4.3.3
-* win-builder (R-devel and R-release)
+No new Windows or macOS checks have been performed for this patch.
